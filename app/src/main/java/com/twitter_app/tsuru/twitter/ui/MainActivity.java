@@ -9,6 +9,7 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -21,6 +22,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -72,6 +75,7 @@ public class MainActivity extends ListActivity{
 
             mTwitter = TwitterUtils.getTwitterInstance(this);
             reloadTimeLine();
+
         }
 
     }
@@ -96,8 +100,8 @@ public class MainActivity extends ListActivity{
                 startActivity(intent);
                 return true;
             case R.id.menu_home://ホームボタンを押したときの処理
-                Intent pro = new Intent(this,TwitterProfileActivity.class);
-                startActivity(pro);
+                Intent profile = new Intent(this,TwitterProfileActivity.class);
+                startActivity(profile);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -119,8 +123,9 @@ public class MainActivity extends ListActivity{
             protected void onPostExecute(List<twitter4j.Status> result) {
                 if (result != null) {
                     mAdapter.clear();
-                    for (twitter4j.Status status : result) {
+                    for (final twitter4j.Status status : result) {
                         mAdapter.add(status);
+
                     }
                     getListView().setSelection(0);
                 } else {
@@ -130,6 +135,8 @@ public class MainActivity extends ListActivity{
         };
         task.execute();
     }
+
+
 
     private void showToast(String text) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
@@ -145,11 +152,11 @@ public class MainActivity extends ListActivity{
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
                 convertView = mInflater.inflate(R.layout.list_item_tweet, null);
             }
-            Status item = getItem(position);
+            final Status item = getItem(position);
             TextView name = (TextView) convertView.findViewById(R.id.name);
             name.setText(item.getUser().getName());
             TextView screenName = (TextView) convertView.findViewById(R.id.screen_name);
@@ -158,6 +165,9 @@ public class MainActivity extends ListActivity{
             text.setText(item.getText());
             ImageView icon = (ImageView) convertView.findViewById(R.id.icon);
             Picasso.with(this.getContext()).load(item.getUser().getProfileImageURL()).into(icon);//アカウント画像の取得
+            final Long userId= item.getId();
+
+
             return convertView;
         }
     }

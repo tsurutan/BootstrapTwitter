@@ -1,18 +1,29 @@
 package com.twitter_app.tsuru.twitter.ui;
 
 import android.app.Activity;
+import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.twitter_app.tsuru.twitter.Injector;
 import com.twitter_app.tsuru.twitter.R;
 import com.twitter_app.tsuru.twitter.TwitterUtils;
 import com.twitter_app.tsuru.twitter.authenticator.TwitterOAuthActivity;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -27,13 +38,11 @@ import twitter4j.User;
  * Created by tsuru on 2014/08/02.
  */
 public class TwitterProfileActivity extends Activity{
-
-   Twitter twitter;
+    Twitter twitter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
     }
 
 
@@ -51,13 +60,6 @@ public class TwitterProfileActivity extends Activity{
         }
         return super.onOptionsItemSelected(item);
     }
-    private void showProfileimg(){
-        ImageView profile_img=(ImageView)findViewById(R.id.profile_img);
-        try {
-            User user = twitter.verifyCredentials();
-            Picasso.with(this).load(user.getProfileImageURL()).into(profile_img);
-        } catch (TwitterException e) {
-            e.printStackTrace();
-        }
-    }
+
+
 }

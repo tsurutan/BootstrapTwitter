@@ -32,9 +32,31 @@
 
     <TextView
         android:id="@+id/text"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/name"
         android:layout_below="@+id/name"
         android:text="本文本文本文本文本文本文本文本文本文本文" />
+
+    <ImageButton
+        android:id="@+id/reply"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/reply_action"
+        android:layout_below="@+id/text"
+        android:layout_toRightOf="@+id/icon"/>
+    <ImageButton
+        android:id="@+id/retweet"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/retweet_action"
+        android:layout_below="@+id/text"
+        android:layout_toRightOf="@+id/reply"/>
+    <ImageButton
+        android:id="@+id/favorite"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/favorite_action"
+        android:layout_below="@+id/text"
+        android:layout_toRightOf="@+id/retweet"/>
 </RelativeLayout>

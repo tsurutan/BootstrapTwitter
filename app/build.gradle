@@ -31,7 +31,7 @@ dependencies {
     compile 'com.squareup.picasso:picasso:1.1.1'
     compile 'com.squareup.retrofit:retrofit:1.5.1'
     compile fileTree(dir: 'libs', includes: ['*.jar'])
-    compile "org.twitter4j:twitter4j-core:3.0.4-SNAPSHOT" //mavenからDLする記述
+    compile "org.twitter4j:twitter4j-core:4.0.0" //mavenからDLする記述
 
 
 
