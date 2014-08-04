@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrap="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_refresh"
+        android:icon="@drawable/ic_action_refresh"
+        android:orderInCategory="1"
+        android:showAsAction="always"
+        android:title="@string/menu_refresh"
+        tools:ignore="AppCompatResource" />
+
+    <item
+        android:id="@+id/menu_tweet"
+        android:icon="@drawable/ic_action_compose"
+        android:orderInCategory="200"
+        android:showAsAction="always"
+        android:title="@string/menu_tweet"
+        tools:ignore="AppCompatResource" />
+    <item
+        android:id="@+id/menu_home"
+        android:icon="@drawable/ic_action_home"
+        android:orderInCategory="200"
+        android:showAsAction="always"
+        android:title="@string/menu_tweet"
+        tools:ignore="AppCompatResource" />
+</menu>
