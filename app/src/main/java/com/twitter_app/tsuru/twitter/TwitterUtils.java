@@ -15,12 +15,8 @@ public class TwitterUtils{
         private static final String TOKEN_SECRET = "token_secret";
         private static final String PREF_NAME = "twitter_access_token";
 
-        /**
-         * Twitterインスタンスを取得します。アクセストークンが保存されていれば自動的にセットします。
-         *
-         * @param context
-         * @return
-         */
+
+         //Twitterインスタンスを取得します。アクセストークンが保存されていれば自動的にセットします。
         public static Twitter getTwitterInstance(Context context) {
             String consumerKey = context.getString(R.string.twitter_consumer_key);
             String consumerSecret = context.getString(R.string.twitter_consumer_secret);
@@ -35,12 +31,7 @@ public class TwitterUtils{
             return twitter;
         }
 
-        /**
-         * アクセストークンをプリファレンスに保存します。
-         *
-         * @param context
-         * @param accessToken
-         */
+        //アクセストークンをプリファレンスに保存します。
         public static void storeAccessToken(Context context, AccessToken accessToken) {
             SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
                     context.MODE_PRIVATE);
@@ -50,12 +41,8 @@ public class TwitterUtils{
             editor.commit();
         }
 
-        /**
-         * アクセストークンをプリファレンスから読み込みます。
-         *
-         * @param context
-         * @return
-         */
+
+        //アクセストークンをプリファレンスから読み込みます。
         public static AccessToken loadAccessToken(Context context) {
             SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
                     context.MODE_PRIVATE);
@@ -68,11 +55,8 @@ public class TwitterUtils{
             }
         }
 
-        /**
-         * アクセストークンが存在する場合はtrueを返します。
-         *
-         * @return
-         */
+
+        //アクセストークンが存在する場合はtrueを返します。
         public static boolean hasAccessToken(Context context) {
             return loadAccessToken(context) != null;
         }

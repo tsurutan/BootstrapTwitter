@@ -21,22 +21,16 @@ import twitter4j.TwitterException;
  */
 public class TwitterProfileActivity extends Activity{
     Twitter twitter;
-    String name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         new TwitterProfileAsync(this).execute();
-
-
-
-
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.twitter_menu, menu);
         return true;
     }
@@ -51,32 +45,30 @@ public class TwitterProfileActivity extends Activity{
 
 
     public class TwitterProfileAsync extends AsyncTask<Void, Void, Void> {
-
-        Context mActivity;
-        String user;
+        Context activity;
+        String userNameIdStr;
+        String userNameStr;
+        String profileExplainStr;
         String url;
         TwitterProfileAsync(Context activity){
             super();
-            mActivity = activity;
+            this.activity = activity;
         }
 
         @Override
         protected void onPreExecute() {
-            // TODO 自動生成されたメソッド・スタブ
             super.onPreExecute();
-            //下ごしらえ
         }
 
         // バックグラウンドで実行する処理
         @Override
         protected Void doInBackground(Void... params) {
-            //処理どーーんとこいっ！！
-            twitter = TwitterUtils.getTwitterInstance(mActivity);
+            twitter = TwitterUtils.getTwitterInstance(activity);
             try {
-
-                twitter=TwitterUtils.getTwitterInstance(mActivity);
-
-                user = twitter.getScreenName();
+                twitter=TwitterUtils.getTwitterInstance(activity);
+                userNameIdStr = twitter.getScreenName();
+                userNameStr = twitter.verifyCredentials().getName();
+                profileExplainStr = twitter.verifyCredentials().getDescription();
                 url=twitter.users().verifyCredentials().getProfileImageURL();
             } catch (TwitterException e) {
                 e.printStackTrace();
@@ -86,11 +78,14 @@ public class TwitterProfileActivity extends Activity{
         // メインスレッドで実行する処理
         @Override
         protected void onPostExecute(Void result) {
-
-            TextView username=(TextView)findViewById(R.id.largetext);
-            username.setText("@"+user);
+            TextView usernameid=(TextView)findViewById(R.id.atto_name);
+            usernameid.setText("@"+ userNameIdStr);
+            TextView username=(TextView)findViewById(R.id.name);
+            username.setText(userNameStr);
+            TextView plofileexplain=(TextView)findViewById(R.id.profile_explain);
+            plofileexplain.setText(profileExplainStr);
             ImageView profile=(ImageView)findViewById(R.id.profile_img);
-            Picasso.with(mActivity).load(url).into(profile);
+            Picasso.with(activity).load(url).into(profile);
         }
     }
 

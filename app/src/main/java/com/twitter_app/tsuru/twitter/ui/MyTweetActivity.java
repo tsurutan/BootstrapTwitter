@@ -18,18 +18,15 @@ import twitter4j.TwitterException;
  */
 public class MyTweetActivity extends Activity {
 
-    private EditText mInputText;
-    private Twitter mTwitter;
+    private EditText inputText;
+    private Twitter twitter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tweet);
-
-        mTwitter = TwitterUtils.getTwitterInstance(this);
-
-        mInputText = (EditText) findViewById(R.id.input_text);
-
+        twitter = TwitterUtils.getTwitterInstance(this);
+        inputText = (EditText) findViewById(R.id.input_text);
         findViewById(R.id.action_tweet).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,7 +40,7 @@ public class MyTweetActivity extends Activity {
             @Override
             protected Boolean doInBackground(String... params) {
                 try {
-                    mTwitter.updateStatus(params[0]);
+                    twitter.updateStatus(params[0]);
                     return true;
                 } catch (TwitterException e) {
                     e.printStackTrace();
@@ -61,7 +58,7 @@ public class MyTweetActivity extends Activity {
                 }
             }
         };
-        task.execute(mInputText.getText().toString());
+        task.execute(inputText.getText().toString());
     }
 
     private void showToast(String text) {

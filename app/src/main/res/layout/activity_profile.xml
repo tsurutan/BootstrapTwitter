@@ -14,12 +14,32 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/largetext"
+        android:text="name"
+        android:id="@+id/name"
+        android:layout_toStartOf="@+id/atto_name"
         android:layout_below="@+id/profile_img"
-        android:layout_centerHorizontal="true" />
+        android:layout_toLeftOf="@+id/atto_name"
+        android:layout_alignLeft="@+id/profile_img"
+        android:layout_alignStart="@+id/profile_img" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="atto_name"
+        android:id="@+id/atto_name"
+        android:layout_below="@+id/profile_img"
+        android:layout_alignRight="@+id/profile_img"
+        android:layout_alignEnd="@+id/profile_img" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="プロファイルの説明"
+        android:id="@+id/profile_explain"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="50dp"/>
 
 
 </RelativeLayout>
