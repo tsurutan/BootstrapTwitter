@@ -1,8 +1,12 @@
 package com.twitter_app.tsuru.twitter.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -16,7 +20,7 @@ import twitter4j.TwitterException;
 /**
  * Created by tsuru on 2014/08/02.
  */
-public class MyTweetActivity extends Activity {
+public class MyTweetActivity extends ActionBarActivity {
 
     private EditText inputText;
     private Twitter twitter;
@@ -33,6 +37,22 @@ public class MyTweetActivity extends Activity {
                 tweet();
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.back_twitter_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {//バックボタンを押したときの処理
+            case R.id.back_tweet:
+                Intent main =new Intent(this,MainTwitterActivity.class);
+                startActivity(main);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void tweet() {

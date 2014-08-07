@@ -6,12 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.twitter_app.tsuru.twitter.ui.MainTwitterActivity;
 
 import twitter4j.Status;
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
 
 /**
  * Created by tsuru on 2014/08/07.
@@ -38,7 +43,8 @@ public class TweetTimelineAdapter extends ArrayAdapter<Status> {
         TextView text = (TextView) convertView.findViewById(R.id.text);
         text.setText(item.getText());
         ImageView icon = (ImageView) convertView.findViewById(R.id.icon);
-        Picasso.with(this.getContext()).load(item.getUser().getProfileImageURL()).into(icon);//アカウント画像の取得
+        //アカウント画像の取得
+        Picasso.with(this.getContext()).load(item.getUser().getProfileImageURL()).into(icon);
         final Long userId= item.getId();
         return convertView;
     }

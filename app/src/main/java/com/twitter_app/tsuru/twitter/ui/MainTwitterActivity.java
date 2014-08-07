@@ -6,6 +6,7 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -43,7 +44,7 @@ public class MainTwitterActivity extends ListActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.twitter_menu, menu);
+        getMenuInflater().inflate(R.menu.main_twitter_menu, menu);
         return true;
     }
 
@@ -68,6 +69,7 @@ public class MainTwitterActivity extends ListActivity{
 
     private void reloadTimeLine() {//非同期によるタイムラインの取得
         AsyncTask<Void, Void, List<twitter4j.Status>> task = new AsyncTask<Void, Void, List<twitter4j.Status>>() {
+
             @Override
             protected List<twitter4j.Status> doInBackground(Void... params) {
                 try {

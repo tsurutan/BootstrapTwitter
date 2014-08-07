@@ -37,9 +37,9 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="プロファイルの説明"
         android:id="@+id/profile_explain"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/name"
         android:layout_centerHorizontal="true"
-        android:layout_margin="50dp"/>
+        android:layout_margin="60dp"/>
 
 
 </RelativeLayout>
