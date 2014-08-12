@@ -3,26 +3,29 @@
 package com.twitter_app.tsuru.twitter.ui;
 
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 import com.twitter_app.tsuru.twitter.R;
-import com.twitter_app.tsuru.twitter.TweetTimelineAdapter;
+import com.twitter_app.tsuru.twitter.adapter.TweetTimelineAdapter;
 import com.twitter_app.tsuru.twitter.TwitterUtils;
 import com.twitter_app.tsuru.twitter.authenticator.TwitterOAuthActivity;
 import java.util.List;
+
+import twitter4j.Paging;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
 
-public class MainTwitterActivity extends ListActivity{
+public class MainActivity extends ListActivity{
 
     private TweetTimelineAdapter adapter;
     private Twitter twitter;
+    ProgressDialog prog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,11 @@ public class MainTwitterActivity extends ListActivity{
         } else {
             adapter = new TweetTimelineAdapter(this);
             setListAdapter(adapter);
+            prog=new ProgressDialog(this);
+            prog.setProgressStyle(prog.STYLE_SPINNER);
+            prog.setMessage("読み込み中です");
+            prog.setCancelable(true);
+            prog.show();
             twitter = TwitterUtils.getTwitterInstance(this);
             reloadTimeLine();
 
@@ -60,7 +68,7 @@ public class MainTwitterActivity extends ListActivity{
                 startActivity(intent);
                 return true;
             case R.id.menu_home://ホームボタンを押したときの処理
-                Intent profile = new Intent(this, TwitterProfileActivity.class);
+                Intent profile = new Intent(this, MyTwitterProfileActivity.class);
                 startActivity(profile);
                 return true;
         }
@@ -70,10 +78,16 @@ public class MainTwitterActivity extends ListActivity{
     private void reloadTimeLine() {//非同期によるタイムラインの取得
         AsyncTask<Void, Void, List<twitter4j.Status>> task = new AsyncTask<Void, Void, List<twitter4j.Status>>() {
 
+
             @Override
             protected List<twitter4j.Status> doInBackground(Void... params) {
                 try {
-                    return twitter.getHomeTimeline();
+                    Paging paging=new Paging();
+                    //タイムラインの取得数を指定
+                    paging.setCount(50);
+
+
+                    return twitter.getHomeTimeline(paging);
                 } catch (TwitterException e) {
                     e.printStackTrace();
                 }
@@ -83,6 +97,7 @@ public class MainTwitterActivity extends ListActivity{
             @Override
             protected void onPostExecute(List<twitter4j.Status> result) {
                 if (result != null) {
+                    prog.dismiss();
                     adapter.clear();
                     for (final twitter4j.Status status : result) {
                         adapter.add(status);

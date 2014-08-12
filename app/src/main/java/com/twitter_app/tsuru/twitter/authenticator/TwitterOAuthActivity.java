@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.twitter_app.tsuru.twitter.R;
 import com.twitter_app.tsuru.twitter.TwitterUtils;
-import com.twitter_app.tsuru.twitter.ui.MainTwitterActivity;
+import com.twitter_app.tsuru.twitter.ui.MainActivity;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -105,7 +105,7 @@ public class TwitterOAuthActivity extends Activity {
 
     private void successOAuth(AccessToken accessToken) {
         TwitterUtils.storeAccessToken(this, accessToken);
-        Intent intent = new Intent(this, MainTwitterActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
     }

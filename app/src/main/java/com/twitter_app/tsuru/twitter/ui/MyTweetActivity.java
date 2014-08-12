@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,17 +19,24 @@ import twitter4j.TwitterException;
 /**
  * Created by tsuru on 2014/08/02.
  */
-public class MyTweetActivity extends ActionBarActivity {
+public class MyTweetActivity extends Activity {
 
     private EditText inputText;
     private Twitter twitter;
+    String screenName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tweet);
+        Intent getName = getIntent();
+        screenName = getName.getStringExtra("screenName");
         twitter = TwitterUtils.getTwitterInstance(this);
         inputText = (EditText) findViewById(R.id.input_text);
+        //リプライの処理
+        if(screenName!=null){
+            inputText.setText("@"+screenName);
+        }
         findViewById(R.id.action_tweet).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,7 +55,7 @@ public class MyTweetActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {//バックボタンを押したときの処理
             case R.id.back_tweet:
-                Intent main =new Intent(this,MainTwitterActivity.class);
+                Intent main =new Intent(this,MainActivity.class);
                 startActivity(main);
         }
         return super.onOptionsItemSelected(item);
@@ -82,6 +88,7 @@ public class MyTweetActivity extends ActionBarActivity {
     }
 
     private void showToast(String text) {
+
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 }

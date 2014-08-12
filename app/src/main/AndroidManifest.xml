@@ -17,12 +17,12 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/icon"
+        android:icon="@drawable/ic_launcher_twitter"
         android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat">
 
         <activity
-            android:name=".ui.MainTwitterActivity"
+            android:name=".ui.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name">
             <intent-filter>
@@ -46,8 +46,11 @@
                         android:scheme="gabu" />
                 </intent-filter>
             </activity>
-        <activity android:name=".ui.TwitterProfileActivity"></activity>
+        <activity android:name=".ui.MyTwitterProfileActivity"></activity>
         <activity android:name=".ui.MyTweetActivity"></activity>
+        <activity android:name=".ui.OtherTwitterProfileActivity"></activity>
+        <activity android:name=".ui.MyFavoriteActivity"></activity>
+        <activity android:name=".ui.TwitterFavoriteRankingActivity"></activity>
     </application>
 
 </manifest>

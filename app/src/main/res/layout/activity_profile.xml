@@ -4,12 +4,12 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:id="@+id/profile_img"
-        android:src="@drawable/ic_home"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        style="@style/ListSpinner"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -39,7 +39,35 @@
         android:id="@+id/profile_explain"
         android:layout_below="@+id/name"
         android:layout_centerHorizontal="true"
-        android:layout_margin="60dp"/>
+        android:layout_margin="30dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="フォロー"
+        android:id="@+id/follow"
+        android:layout_below="@+id/profile_explain"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="20dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="フォロワー"
+        android:id="@+id/follower"
+        android:layout_toEndOf="@+id/follow"
+        android:layout_alignTop="@+id/follow"
+        android:layout_toRightOf="@+id/follow"
+        android:layout_marginRight="20dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="お気に入り"
+        android:id="@+id/favorite"
+        android:layout_marginTop="32dp"
+        android:layout_below="@+id/follower"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>
