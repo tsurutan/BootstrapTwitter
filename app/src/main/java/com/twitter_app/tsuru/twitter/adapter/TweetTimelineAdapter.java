@@ -59,23 +59,23 @@ public class TweetTimelineAdapter extends ArrayAdapter<Status> {
         final Status item = getItem(position);
         final TextView name = (TextView) convertView.findViewById(R.id.name);
         final TextView screenName = (TextView) convertView.findViewById(R.id.screen_name);
+        final TextView favoriteNumber = (TextView) convertView.findViewById(R.id.favorite_number);
+        final TextView retweetNumber = (TextView) convertView.findViewById(R.id.retweet_number);
+        final TextView text = (TextView) convertView.findViewById(R.id.text);
         final ImageView icon = (ImageView) convertView.findViewById(R.id.icon);
         final ImageView favoriteBtn = (ImageView) convertView.findViewById(R.id.favorite);
-        final TextView favoriteNumber = (TextView) convertView.findViewById(R.id.favorite_number);
-        final ImageView retweetBtn = (ImageView) convertView.findViewById(R.id.retweet);
-        final TextView retweetNumber = (TextView) convertView.findViewById(R.id.retweet_number);
         final ImageView replyBtn = (ImageView) convertView.findViewById(R.id.reply);
         final ImageView profileImg = (ImageView) convertView.findViewById(R.id.icon);
+        final ImageView retweetBtn = (ImageView) convertView.findViewById(R.id.retweet);
 
         name.setText(item.getUser().getName());
         screenName.setText("@" + item.getUser().getScreenName());
-        TextView text = (TextView) convertView.findViewById(R.id.text);
         text.setText(item.getText());
         Picasso.with(this.getContext()).load(item.getUser().getProfileImageURL()).into(icon);
 
-        if (item.getFavoriteCount() != 0) {
-            favoriteNumber.setText(favoriteNumberGet);
-        }
+
+        favoriteNumber.setText(String.valueOf(item.getFavoriteCount()));
+
 
         favoriteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,10 +117,7 @@ public class TweetTimelineAdapter extends ArrayAdapter<Status> {
         });
 
         retweetNumberGet = String.valueOf(item.getRetweetCount());
-        if (item.getRetweetCount() != 0) {
-            retweetNumber.setText(retweetNumberGet);
-        }
-
+        retweetNumber.setText(retweetNumberGet);
 
         retweetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,7 +171,6 @@ public class TweetTimelineAdapter extends ArrayAdapter<Status> {
             }
         });
 
-        //ユーザーのプロフィール画像を押したときの処理
         profileImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
