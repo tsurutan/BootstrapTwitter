@@ -11,7 +11,7 @@
         tools:ignore="AppCompatResource" />
     <item
         android:id="@+id/ranking_tweet"
-        android:icon="@drawable/ic_action_crown"
+        android:icon="@drawable/ic_action_ranking"
         android:orderInCategory="200"
         android:showAsAction="always"
         android:title="ランキング"

@@ -50,10 +50,10 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:id="@+id/imageView3"
-        android:src="@drawable/ic_action_crown"
+        android:src="@drawable/clown_first"
         android:layout_toStartOf="@+id/first"
         android:layout_above="@+id/second"
-        android:layout_alignLeft="@+id/textView4"
+        android:layout_toLeftOf="@+id/first"
         android:layout_alignStart="@+id/textView4" />
 
     <ImageView

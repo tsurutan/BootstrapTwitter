@@ -13,12 +13,6 @@ import com.twitter_app.tsuru.twitter.R;
  * Created by tsuru on 2014/08/12.
  */
 public class TwitterFavoriteRankingActivity extends Activity{
-    String name;
-    String screenName;
-    String text;
-    String url;
-    String follow;
-    String follower;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

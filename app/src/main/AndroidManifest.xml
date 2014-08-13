@@ -51,6 +51,7 @@
         <activity android:name=".ui.OtherTwitterProfileActivity"></activity>
         <activity android:name=".ui.MyFavoriteActivity"></activity>
         <activity android:name=".ui.TwitterFavoriteRankingActivity"></activity>
+        <activity android:name=".ui.OtherFavoriteActivity"></activity>
     </application>
 
 </manifest>

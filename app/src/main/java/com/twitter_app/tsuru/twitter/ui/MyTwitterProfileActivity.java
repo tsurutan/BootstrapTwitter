@@ -20,7 +20,6 @@ public class MyTwitterProfileActivity extends Activity implements View.OnClickLi
     Button follow;
     Button follower;
     Button favorite;
-    Button favoriteRanking;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

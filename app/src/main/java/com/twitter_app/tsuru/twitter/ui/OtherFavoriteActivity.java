@@ -18,13 +18,14 @@ import com.twitter_app.tsuru.twitter.adapter.TwitterFavoriteAdapter;
 import java.util.List;
 
 import twitter4j.Paging;
+import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
 /**
- * Created by tsuru on 2014/08/12.
+ * Created by tsuru on 2014/08/13.
  */
-public class MyFavoriteActivity extends ListActivity{
+public class OtherFavoriteActivity extends ListActivity {
 
     private TwitterFavoriteAdapter adapter;
     private Twitter twitter;
@@ -32,6 +33,7 @@ public class MyFavoriteActivity extends ListActivity{
     ProgressDialog prog;
     TwitterGetId[] favoriteId;
     String[] name;
+    long userId;
     int position;
     int count;
     int count_i;
@@ -48,19 +50,21 @@ public class MyFavoriteActivity extends ListActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-            favoriteId = new TwitterGetId[200];
-            for(position=0;position<200;position++){
-                favoriteId[position]=new TwitterGetId();
-            }
-            adapter = new TwitterFavoriteAdapter(this, favoriteId);
-            setListAdapter(adapter);
-            prog=new ProgressDialog(this);
-            prog.setProgressStyle(prog.STYLE_SPINNER);
-            prog.setMessage("読み込み中です");
-            prog.setCancelable(true);
-            prog.show();
-            twitter = TwitterUtils.getTwitterInstance(this);
-            reloadTimeLine();
+        favoriteId = new TwitterGetId[200];
+        for(position=0;position<200;position++){
+            favoriteId[position]=new TwitterGetId();
+        }
+        adapter = new TwitterFavoriteAdapter(this, favoriteId);
+        setListAdapter(adapter);
+        prog=new ProgressDialog(this);
+        prog.setProgressStyle(prog.STYLE_SPINNER);
+        prog.setMessage("読み込み中です");
+        prog.setCancelable(true);
+        prog.show();
+        twitter = TwitterUtils.getTwitterInstance(this);
+        Intent getUserId = getIntent();
+        userId = getUserId.getLongExtra("userId",100);
+        reloadTimeLine();
     }
 
 
@@ -78,7 +82,7 @@ public class MyFavoriteActivity extends ListActivity{
                 return true;
 
             case R.id.back_tweet://バックボタンを押したときの処理
-                Intent backInt = new Intent(this, MyTwitterProfileActivity.class);
+                Intent backInt = new Intent(this, OtherTwitterProfileActivity.class);
                 startActivity(backInt);
                 return true;
         }
@@ -86,7 +90,7 @@ public class MyFavoriteActivity extends ListActivity{
     }
 
     private void reloadTimeLine() {//非同期によるタイムラインの取得
-        AsyncTask<Void, Void, List<twitter4j.Status>> task = new AsyncTask<Void, Void, List<twitter4j.Status>>() {
+        AsyncTask<Void, Void, List<Status>> task = new AsyncTask<Void, Void, List<twitter4j.Status>>() {
 
 
             @Override
@@ -94,7 +98,7 @@ public class MyFavoriteActivity extends ListActivity{
                 try {
                     Paging paging = new Paging();
                     paging.setCount(150);
-                    return twitter.getFavorites(paging);
+                    return twitter.getFavorites(userId,paging);
                 } catch (TwitterException e) {
                     e.printStackTrace();
                 }

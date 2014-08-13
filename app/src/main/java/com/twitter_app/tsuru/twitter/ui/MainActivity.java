@@ -84,7 +84,7 @@ public class MainActivity extends ListActivity{
                 try {
                     Paging paging=new Paging();
                     //タイムラインの取得数を指定
-                    paging.setCount(50);
+                    paging.setCount(200);
 
 
                     return twitter.getHomeTimeline(paging);

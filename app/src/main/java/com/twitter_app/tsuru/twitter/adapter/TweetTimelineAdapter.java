@@ -186,6 +186,7 @@ public class TweetTimelineAdapter extends ArrayAdapter<Status> {
                     profileInt.putExtra("url",item.getUser().getProfileImageURL());
                     profileInt.putExtra("follow",item.getUser().getFriendsCount());
                     profileInt.putExtra("follower",item.getUser().getFollowersCount());
+                    profileInt.putExtra("userId",item.getUser().getId());
                     activity.startActivity(profileInt);
                 }
             });
