@@ -31,9 +31,8 @@ public class MyFavoriteActivity extends ListActivity {
     TwitterGetId[] favoriteId;
     String[] name;
     int position;
-    int count;
-    int count_i;
     int[] countName;
+    int count_i;
     int hoji;
 
 
@@ -139,7 +138,7 @@ public class MyFavoriteActivity extends ListActivity {
             }
         }
         //お気に入りにされているユーザーを数える
-        for (count = 0; count < hoji; count++) {
+        for (int count = 0; count < hoji; count++) {
             for (int position = 0; favoriteId[position].item != null; position++) {
                 if (name[count].equals(favoriteId[position].item.getUser().getName())) {
                     countName[count]++;
@@ -147,7 +146,7 @@ public class MyFavoriteActivity extends ListActivity {
             }
         }
         //お気に入りにされた人の順位をつける
-        for (count = 0; count < hoji; count++) {
+        for (int count = 0; count < hoji; count++) {
             if (countName[count] > favoriteId[0].max) {
                 favoriteId[0].max = countName[count];
                 favoriteId[0].count = count;
