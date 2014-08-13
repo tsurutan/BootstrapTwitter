@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/first"
+        android:layout_marginTop="127dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/second"
+        android:layout_marginTop="99dp"
+        android:layout_below="@+id/first"
+        android:layout_alignLeft="@+id/first"
+        android:layout_alignStart="@+id/first" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/third"
+        android:layout_below="@+id/second"
+        android:layout_alignLeft="@+id/second"
+        android:layout_alignStart="@+id/second"
+        android:layout_marginTop="98dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="お気に入りランキング！！"
+        android:id="@+id/textView4"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp" />
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/imageView3"
+        android:src="@drawable/clown_first"
+        android:layout_toStartOf="@+id/first"
+        android:layout_above="@+id/second"
+        android:layout_toLeftOf="@+id/first"
+        android:layout_alignStart="@+id/textView4" />
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/imageView4"
+        android:src="@drawable/second_clown"
+        android:layout_toStartOf="@+id/second"
+        android:layout_alignBottom="@+id/second"
+        android:layout_alignLeft="@+id/imageView3"
+        android:layout_alignStart="@+id/imageView3" />
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/imageView5"
+        android:src="@drawable/third_clown"
+        android:layout_toStartOf="@+id/third"
+        android:layout_alignBottom="@+id/third"
+        android:layout_alignLeft="@+id/imageView4"
+        android:layout_alignStart="@+id/imageView4" />
+
+</RelativeLayout>
