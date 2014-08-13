@@ -8,5 +8,6 @@ import twitter4j.Status;
 public class TwitterGetId {//Idの値渡しとして使う
     public long Id;
     public Status item;
+    public int max;
     public int count;
 }

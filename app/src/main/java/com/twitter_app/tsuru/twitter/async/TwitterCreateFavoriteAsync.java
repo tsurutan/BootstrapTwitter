@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import com.twitter_app.tsuru.twitter.R;
 import com.twitter_app.tsuru.twitter.TwitterUtils;
 
 import twitter4j.Twitter;
@@ -14,16 +15,16 @@ import twitter4j.TwitterException;
  */
 //お気に入りの処理を行う非同期タスクです。
 public class TwitterCreateFavoriteAsync extends AsyncTask<Void, Void, Void> {
-    Twitter twitter;
-    Context activity;
-    twitter4j.Status item;
-    Long id;
+    public Twitter twitter;
+    public Context context;
+    public twitter4j.Status item;
+    public long id;
 
 
-    public TwitterCreateFavoriteAsync(Context activity,
+    public TwitterCreateFavoriteAsync(Context context,
                                       twitter4j.Status item){
         super();
-        this.activity = activity;
+        this.context = context;
         this.item=item;
     }
 
@@ -36,9 +37,9 @@ public class TwitterCreateFavoriteAsync extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... params) {
-        twitter = TwitterUtils.getTwitterInstance(activity);
+        twitter = TwitterUtils.getTwitterInstance(context);
         try {
-            twitter=TwitterUtils.getTwitterInstance(activity);
+            twitter=TwitterUtils.getTwitterInstance(context);
             id=item.getId();
 
             twitter.createFavorite(id);
@@ -52,7 +53,7 @@ public class TwitterCreateFavoriteAsync extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void result) {
 
-        Toast.makeText(activity, "お気に入りにしました。", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, R.string.favorited, Toast.LENGTH_SHORT).show();
 
     }
 }

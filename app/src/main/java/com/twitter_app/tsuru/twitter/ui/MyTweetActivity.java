@@ -1,9 +1,9 @@
 package com.twitter_app.tsuru.twitter.ui;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,11 +19,11 @@ import twitter4j.TwitterException;
 /**
  * Created by tsuru on 2014/08/02.
  */
-public class MyTweetActivity extends Activity {
+public class MyTweetActivity extends ActionBarActivity {
 
     private EditText inputText;
     private Twitter twitter;
-    String screenName;
+    private String screenName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +33,10 @@ public class MyTweetActivity extends Activity {
         screenName = getName.getStringExtra("screenName");
         twitter = TwitterUtils.getTwitterInstance(this);
         inputText = (EditText) findViewById(R.id.input_text);
+
         //リプライの処理
-        if(screenName!=null){
-            inputText.setText("@"+screenName);
+        if (screenName != null) {
+            inputText.setText("@" + screenName);
         }
         findViewById(R.id.action_tweet).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,9 +54,9 @@ public class MyTweetActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {//バックボタンを押したときの処理
+        switch (item.getItemId()) {
             case R.id.back_tweet:
-                Intent main =new Intent(this,MainActivity.class);
+                Intent main = new Intent(this, MainActivity.class);
                 startActivity(main);
         }
         return super.onOptionsItemSelected(item);
@@ -77,10 +78,10 @@ public class MyTweetActivity extends Activity {
             @Override
             protected void onPostExecute(Boolean result) {
                 if (result) {
-                    showToast("ツイートが完了しました！");
+                    showToast(getString(R.string.tweeted));
                     finish();
                 } else {
-                    showToast("ツイートに失敗しました。。。");
+                    showToast(getString(R.string.missing_tweeting));
                 }
             }
         };

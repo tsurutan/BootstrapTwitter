@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import com.twitter_app.tsuru.twitter.R;
 import com.twitter_app.tsuru.twitter.TwitterGetId;
 import com.twitter_app.tsuru.twitter.TwitterUtils;
 
@@ -14,20 +15,20 @@ import twitter4j.TwitterException;
  * Created by tsuru on 2014/08/09.
  */
 public class TwitterCreateRetweetAsync extends AsyncTask<Void, Void, Long> {
-    Twitter twitter;
-    Context activity;
-    twitter4j.Status item;
-    Long id;
-    Long retweetId;
-    TwitterGetId retweetGetId;
+    public Twitter twitter;
+    public Context context;
+    public twitter4j.Status item;
+    public long id;
+    public long retweetId;
+    public TwitterGetId retweetGetId;
 
-    public TwitterCreateRetweetAsync(Context activity,
+    public TwitterCreateRetweetAsync(Context context,
                                      twitter4j.Status item,
                                      TwitterGetId retweetGetId){
         super();
-        this.activity = activity;
+        this.context = context;
         this.item=item;
-        twitter = TwitterUtils.getTwitterInstance(activity);
+        twitter = TwitterUtils.getTwitterInstance(context);
         id=item.getId();
         this.retweetGetId=retweetGetId;
     }
@@ -54,7 +55,7 @@ public class TwitterCreateRetweetAsync extends AsyncTask<Void, Void, Long> {
     @Override
     protected void onPostExecute(Long result) {
 
-        Toast.makeText(activity, "リツイートしました。", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, R.string.retweeted, Toast.LENGTH_SHORT).show();
     }
 
 

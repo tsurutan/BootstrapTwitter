@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.twitter_app.tsuru.twitter.R;
 import com.twitter_app.tsuru.twitter.TwitterUtils;
 
 import twitter4j.Twitter;
@@ -17,24 +18,24 @@ import twitter4j.TwitterException;
  * Created by tsuru on 2014/08/08.
  */
 public class TwitterProfileAsync extends AsyncTask<Void, Void, Void> {
-    Twitter twitter;
-    Context activity;
-    String userNameIdStr;
-    String userNameStr;
-    String profileExplainStr;
-    String url;
-    String followerNumber;
-    String followNumber;
-    TextView usernameid;
-    TextView username;
-    TextView profileExplain;
-    ImageView profile;
-    Button follow;
-    Button follower;
-    ProgressDialog prog;
+    public Twitter twitter;
+    public Context context;
+    public String userNameIdStr;
+    public String userNameStr;
+    public String profileExplainStr;
+    public String url;
+    public String followerNumber;
+    public String followNumber;
+    public TextView usernameid;
+    public TextView username;
+    public TextView profileExplain;
+    public ImageView profile;
+    public Button follow;
+    public Button follower;
+    public ProgressDialog prog;
 
 
-    public TwitterProfileAsync(Context activity,
+    public TwitterProfileAsync(Context context,
                                TextView usernameid,
                                TextView username,
                                TextView profileExplain,
@@ -43,17 +44,16 @@ public class TwitterProfileAsync extends AsyncTask<Void, Void, Void> {
                                Button follower
                                ){
         super();
-        this.activity = activity;
+        this.context = context;
         this.usernameid=usernameid;
         this.username=username;
         this.profileExplain=profileExplain;
         this.profile=profile;
         this.follow=follow;
         this.follower=follower;
-
-        prog = new ProgressDialog(activity);
+        prog = new ProgressDialog(context);
         prog.setProgressStyle(prog.STYLE_SPINNER);
-        prog.setMessage("読み込み中です");
+        prog.setMessage(context.getString(R.string.loading));
         prog.setCancelable(true);
         prog.show();
     }
@@ -67,9 +67,10 @@ public class TwitterProfileAsync extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... params) {
-        twitter = TwitterUtils.getTwitterInstance(activity);
+        twitter = TwitterUtils.getTwitterInstance(context);
+
         try {
-            twitter=TwitterUtils.getTwitterInstance(activity);
+            twitter=TwitterUtils.getTwitterInstance(context);
             userNameIdStr = twitter.getScreenName();
             userNameStr = twitter.verifyCredentials().getName();
             profileExplainStr = twitter.verifyCredentials().getDescription();
@@ -87,9 +88,9 @@ public class TwitterProfileAsync extends AsyncTask<Void, Void, Void> {
         usernameid.setText("@"+ userNameIdStr);
         username.setText(userNameStr);
         profileExplain.setText(profileExplainStr);
-        follow.setText("フォロー："+followNumber);
-        follower.setText("フォロワー："+followerNumber);
-        Picasso.with(activity).load(url).into(profile);
+        follow.setText(R.string.follow+"："+followNumber);
+        follower.setText(R.string.follower+"："+followerNumber);
+        Picasso.with(context).load(url).into(profile);
         prog.dismiss();
 
     }
