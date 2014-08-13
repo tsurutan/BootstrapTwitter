@@ -24,7 +24,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.squareup.dagger:dagger:1.0.1'
     compile 'com.squareup.dagger:dagger-compiler:1.0.1'
-    compile 'com.jakewharton:butterknife:1.3.2'
+    compile 'com.jakewharton:butterknife:+'
     compile 'com.actionbarsherlock:viewpagerindicator:2.4.1'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.github.kevinsawicki:android-pusher:0.6'

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Toast;
 
@@ -20,7 +21,7 @@ import twitter4j.auth.RequestToken;
 /**
  * Created by tsuru on 2014/08/02.
  */
-public class TwitterOAuthActivity extends Activity {
+public class TwitterOAuthActivity extends ActionBarActivity {
 
     private String callbackURL;
     private Twitter twitter;
@@ -92,11 +93,11 @@ public class TwitterOAuthActivity extends Activity {
             protected void onPostExecute(AccessToken accessToken) {
                 if (accessToken != null) {
                     // 認証成功！
-                    showToast("認証成功！");
+                    showToast(getString(R.string.success_oath));
                     successOAuth(accessToken);
                 } else {
                     // 認証失敗。。。
-                    showToast("認証失敗。。。");
+                    showToast(getString(R.string.failed_oath));
                 }
             }
         };
