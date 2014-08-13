@@ -38,7 +38,7 @@
         android:layout_below="@+id/name"
         android:text="本文本文本文本文本文本文本文本文本文本文" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/reply"
         android:layout_width="40dp"
         android:layout_height="30dp"
@@ -46,7 +46,7 @@
         android:layout_below="@+id/text"
         android:layout_marginLeft="20dp"
         android:layout_toRightOf="@+id/icon"/>
-    <ImageView
+    <ImageButton
         android:id="@+id/retweet"
         android:layout_width="40dp"
         android:layout_height="30dp"
@@ -54,7 +54,7 @@
         android:layout_below="@+id/text"
         android:layout_marginLeft="70dp"
         android:layout_toRightOf="@+id/reply"/>
-    <ImageView
+    <ImageButton
         android:id="@+id/favorite"
         android:layout_width="40dp"
         android:layout_height="30dp"
@@ -62,25 +62,4 @@
         android:layout_below="@+id/text"
         android:layout_marginLeft="70dp"
         android:layout_toRightOf="@+id/retweet"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text=""
-        android:id="@+id/retweet_number"
-        android:layout_toEndOf="@+id/retweet"
-        android:layout_alignBottom="@+id/retweet"
-        android:layout_toRightOf="@+id/retweet" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text=""
-        android:id="@+id/favorite_number"
-        android:layout_alignTop="@+id/retweet_number"
-        android:layout_toRightOf="@+id/favorite"
-        android:layout_toEndOf="@+id/favorite"
-        android:layout_alignBottom="@+id/retweet_number" />
 </RelativeLayout>

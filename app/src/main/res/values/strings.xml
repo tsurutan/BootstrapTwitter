@@ -56,23 +56,6 @@
     <string name="menu_refresh">更新</string>
     <string name="title_activity_my_tweet">MyTweetActivity</string>
     <string name="menu_tweet">つぶやく</string>
-    <string name="loading">読み込み中です。</string>
-    <string name="missing_timeline">タイムラインの読み込みに失敗しました。</string>
-    <string name="renewal">更新しました！</string>
-    <string name="tweeted">ツイートが完了しました！</string>
-    <string name="missing_tweeting">ツイートできませんでした。</string>
-    <string name="follow">フォロー</string>
-    <string name="follower">フォロワー</string>
-    <string name="do_favorite">お気に入りにしますか？</string>
-    <string name="do_retweet">リツイートしますか？</string>
-    <string name="yes">はい</string>
-    <string name="no">いいえ</string>
-    <string name="favorited">お気に入りにしました。</string>
-    <string name="retweeted">リツイートしました。</string>
-    <string name="delete_favorite">お気に入りを削除しました。</string>
-    <string name="delete_retweet">リツイートを削除しました。</string>
-    <string name="success_oath">認証成功！</string>
-    <string name="failed_oath">認証失敗！</string>
 
 
 </resources>

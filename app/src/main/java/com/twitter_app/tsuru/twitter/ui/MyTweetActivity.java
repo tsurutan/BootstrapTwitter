@@ -1,5 +1,6 @@
 package com.twitter_app.tsuru.twitter.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -23,21 +24,13 @@ public class MyTweetActivity extends ActionBarActivity {
 
     private EditText inputText;
     private Twitter twitter;
-    private String screenName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tweet);
-        Intent getName = getIntent();
-        screenName = getName.getStringExtra("screenName");
         twitter = TwitterUtils.getTwitterInstance(this);
         inputText = (EditText) findViewById(R.id.input_text);
-
-        //リプライの処理
-        if (screenName != null) {
-            inputText.setText("@" + screenName);
-        }
         findViewById(R.id.action_tweet).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,9 +47,9 @@ public class MyTweetActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+        switch (item.getItemId()) {//バックボタンを押したときの処理
             case R.id.back_tweet:
-                Intent main = new Intent(this, MainActivity.class);
+                Intent main =new Intent(this,MainTwitterActivity.class);
                 startActivity(main);
         }
         return super.onOptionsItemSelected(item);
@@ -78,10 +71,10 @@ public class MyTweetActivity extends ActionBarActivity {
             @Override
             protected void onPostExecute(Boolean result) {
                 if (result) {
-                    showToast(getString(R.string.tweeted));
+                    showToast("ツイートが完了しました！");
                     finish();
                 } else {
-                    showToast(getString(R.string.missing_tweeting));
+                    showToast("ツイートに失敗しました。。。");
                 }
             }
         };
@@ -89,7 +82,6 @@ public class MyTweetActivity extends ActionBarActivity {
     }
 
     private void showToast(String text) {
-
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 }

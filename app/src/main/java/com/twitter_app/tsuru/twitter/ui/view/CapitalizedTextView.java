@@ -8,9 +8,7 @@ import android.util.Log;
 import android.widget.Button;
 
 import com.twitter_app.tsuru.twitter.util.Strings;
-
 import android.util.Log;
-
 import java.util.Hashtable;
 import java.util.Locale;
 

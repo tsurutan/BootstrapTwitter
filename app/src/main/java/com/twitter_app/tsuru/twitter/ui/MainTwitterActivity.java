@@ -3,48 +3,37 @@
 package com.twitter_app.tsuru.twitter.ui;
 
 import android.app.ListActivity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import com.twitter_app.tsuru.twitter.R;
-import com.twitter_app.tsuru.twitter.adapter.TweetTimelineAdapter;
+import com.twitter_app.tsuru.twitter.TweetTimelineAdapter;
 import com.twitter_app.tsuru.twitter.TwitterUtils;
 import com.twitter_app.tsuru.twitter.authenticator.TwitterOAuthActivity;
-
 import java.util.List;
-
-import twitter4j.Paging;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
 
-public class MainActivity extends ListActivity {
+public class MainTwitterActivity extends ListActivity{
 
     private TweetTimelineAdapter adapter;
     private Twitter twitter;
-    public ProgressDialog prog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //アクセストークンが存在していなかったときの処理
-        if (!TwitterUtils.hasAccessToken(this)) {
+        if (!TwitterUtils.hasAccessToken(this)) {//アクセストークンが存在していなかったときの処理
             Intent intent = new Intent(this, TwitterOAuthActivity.class);
             startActivity(intent);
             finish();
         } else {
             adapter = new TweetTimelineAdapter(this);
             setListAdapter(adapter);
-            prog = new ProgressDialog(this);
-            prog.setProgressStyle(prog.STYLE_SPINNER);
-            prog.setMessage(getString(R.string.loading));
-            prog.setCancelable(true);
-            prog.show();
             twitter = TwitterUtils.getTwitterInstance(this);
             reloadTimeLine();
 
@@ -62,16 +51,16 @@ public class MainActivity extends ListActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_refresh:
+            case R.id.menu_refresh://更新ボタンを押したときの処理
                 reloadTimeLine();
-                showToast(getString(R.string.renewal));
+                showToast("更新しました！");
                 return true;
-            case R.id.menu_tweet:
+            case R.id.menu_tweet://投稿ボタンを押したときの処理
                 Intent intent = new Intent(this, MyTweetActivity.class);
                 startActivity(intent);
                 return true;
-            case R.id.menu_home:
-                Intent profile = new Intent(this, MyTwitterProfileActivity.class);
+            case R.id.menu_home://ホームボタンを押したときの処理
+                Intent profile = new Intent(this, TwitterProfileActivity.class);
                 startActivity(profile);
                 return true;
         }
@@ -81,16 +70,10 @@ public class MainActivity extends ListActivity {
     private void reloadTimeLine() {//非同期によるタイムラインの取得
         AsyncTask<Void, Void, List<twitter4j.Status>> task = new AsyncTask<Void, Void, List<twitter4j.Status>>() {
 
-
             @Override
             protected List<twitter4j.Status> doInBackground(Void... params) {
                 try {
-                    Paging paging = new Paging();
-                    //タイムラインの取得数を指定
-                    paging.setCount(200);
-
-
-                    return twitter.getHomeTimeline(paging);
+                    return twitter.getHomeTimeline();
                 } catch (TwitterException e) {
                     e.printStackTrace();
                 }
@@ -100,14 +83,13 @@ public class MainActivity extends ListActivity {
             @Override
             protected void onPostExecute(List<twitter4j.Status> result) {
                 if (result != null) {
-                    prog.dismiss();
                     adapter.clear();
                     for (final twitter4j.Status status : result) {
                         adapter.add(status);
                     }
                     getListView().setSelection(0);
                 } else {
-                    showToast(getString(R.string.missing_timeline));
+                    showToast("タイムラインの取得に失敗しました。。。");
                 }
             }
         };
