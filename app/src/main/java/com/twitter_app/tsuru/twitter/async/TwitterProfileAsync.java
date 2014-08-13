@@ -88,8 +88,8 @@ public class TwitterProfileAsync extends AsyncTask<Void, Void, Void> {
         usernameid.setText("@"+ userNameIdStr);
         username.setText(userNameStr);
         profileExplain.setText(profileExplainStr);
-        follow.setText(R.string.follow+"："+followNumber);
-        follower.setText(R.string.follower+"："+followerNumber);
+        follow.setText(context.getString(R.string.follow)+"："+followNumber);
+        follower.setText(context.getString(R.string.follower)+"："+followerNumber);
         Picasso.with(context).load(url).into(profile);
         prog.dismiss();
 
