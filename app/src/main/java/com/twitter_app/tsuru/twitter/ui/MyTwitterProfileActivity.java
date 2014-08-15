@@ -20,13 +20,13 @@ import butterknife.InjectView;
  * Created by tsuru on 2014/08/02.
  */
 public class MyTwitterProfileActivity extends ActionBarActivity implements View.OnClickListener {
-    @InjectView(R.id.follow)Button follow;
-    @InjectView(R.id.follower)Button follower;
-    @InjectView(R.id.favorite)Button favorite;
-    @InjectView(R.id.atto_name)TextView userNameId;
-    @InjectView(R.id.name)TextView userName;
-    @InjectView(R.id.profile_explain)TextView profileExplain;
-    @InjectView(R.id.profile_img)ImageView profile;
+    public @InjectView(R.id.follow)Button follow;
+    public @InjectView(R.id.follower)Button follower;
+    public @InjectView(R.id.favorite)Button favorite;
+    public @InjectView(R.id.atto_name)TextView userNameId;
+    public @InjectView(R.id.name)TextView userName;
+    public @InjectView(R.id.profile_explain)TextView profileExplain;
+    public @InjectView(R.id.profile_img)ImageView profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

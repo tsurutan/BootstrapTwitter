@@ -30,12 +30,12 @@ public class OtherFavoriteActivity extends ListActivity {
     private Twitter twitter;
     public ProgressDialog prog;
     public TwitterGetId[] favoriteId;
-    String[] name;
-    long userId;
-    int count;
-    int count_i;
-    int[] countName;
-    int hoji;
+    public String[] name;
+    public long userId;
+    public int count;
+    public int count_i;
+    public int[] countName;
+    public int hoji;
 
 
     @Override

@@ -27,7 +27,7 @@ public class MainActivity extends ListActivity {
 
     private TweetTimelineAdapter adapter;
     private Twitter twitter;
-    public ProgressDialog prog;
+    public ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +40,11 @@ public class MainActivity extends ListActivity {
         } else {
             adapter = new TweetTimelineAdapter(this);
             setListAdapter(adapter);
-            prog = new ProgressDialog(this);
-            prog.setProgressStyle(prog.STYLE_SPINNER);
-            prog.setMessage(getString(R.string.loading));
-            prog.setCancelable(true);
-            prog.show();
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setProgressStyle(progressDialog.STYLE_SPINNER);
+            progressDialog.setMessage(getString(R.string.loading));
+            progressDialog.setCancelable(true);
+            progressDialog.show();
             twitter = TwitterUtils.getTwitterInstance(this);
             reloadTimeLine();
 
@@ -100,7 +100,7 @@ public class MainActivity extends ListActivity {
             @Override
             protected void onPostExecute(List<twitter4j.Status> result) {
                 if (result != null) {
-                    prog.dismiss();
+                    progressDialog.dismiss();
                     adapter.clear();
                     for (final twitter4j.Status status : result) {
                         adapter.add(status);

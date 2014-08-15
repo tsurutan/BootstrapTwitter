@@ -34,7 +34,7 @@ public class TweetTimelineAdapter extends ArrayAdapter<Status> {
 
     private LayoutInflater inflater;
     public Twitter twitter;
-    public Context activity;
+    public Context context;
     public int countFavorite;
     public int countRetweet;
     public String favoriteNumberGet;
@@ -42,19 +42,20 @@ public class TweetTimelineAdapter extends ArrayAdapter<Status> {
     public long id;
     public TwitterGetId retweetGetId;
 
+
     public TweetTimelineAdapter(Context context) {
         super(context, android.R.layout.simple_list_item_1);
         inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-        this.activity = context;
+        this.context = context;
         retweetGetId = new TwitterGetId();
     }
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.list_item_tweet, null);
         }
-
         twitter = TwitterUtils.getTwitterInstance(getContext());
         final Status item = getItem(position);
         final TextView name = (TextView) convertView.findViewById(R.id.name);
@@ -81,37 +82,15 @@ public class TweetTimelineAdapter extends ArrayAdapter<Status> {
             @Override
             public void onClick(View v) {
                 if (countFavorite == 0) {
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
-                    alertDialogBuilder.setMessage(R.string.do_favorite);
-                    alertDialogBuilder.setPositiveButton(R.string.yes,
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    favoriteBtn.setImageResource(R.drawable.favorite_action_clicked);
-                                    countFavorite = 1;
-                                    favoriteNumberGet = String.valueOf(item.getFavoriteCount() + 1);
-                                    favoriteNumber.setText(favoriteNumberGet);
-                                    new TwitterCreateFavoriteAsync(activity, item).execute();
-                                }
-                            }
-                    );
-                    alertDialogBuilder.setNegativeButton(R.string.no,
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                }
-                            }
-                    );
-                    alertDialogBuilder.setCancelable(true);
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-                    alertDialog.show();
+
+                    alertDialogFavorite(favoriteBtn, item, favoriteNumber);
 
                 } else {
                     favoriteBtn.setImageResource(R.drawable.favorite_action);
                     countFavorite = 0;
                     favoriteNumberGet = String.valueOf(item.getFavoriteCount());
                     favoriteNumber.setText(favoriteNumberGet);
-                    new TwitterDestroyFavoriteAsync(activity, item).execute();
+                    new TwitterDestroyFavoriteAsync(context, item).execute();
                 }
             }
         });
@@ -123,36 +102,13 @@ public class TweetTimelineAdapter extends ArrayAdapter<Status> {
             @Override
             public void onClick(View v) {
                 if (countRetweet == 0) {
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
-                    alertDialogBuilder.setMessage(R.string.do_retweet);
-                    alertDialogBuilder.setPositiveButton(R.string.yes,
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    retweetBtn.setImageResource(R.drawable.retweet_action_clicked);
-                                    countRetweet = 1;
-                                    new TwitterCreateRetweetAsync(activity, item, retweetGetId).execute();
-                                    id = retweetGetId.Id;
-                                    retweetNumberGet = String.valueOf(item.getRetweetCount() + 1);
-                                    retweetNumber.setText(retweetNumberGet);
 
-                                }
-                            }
-                    );
-                    alertDialogBuilder.setNegativeButton(R.string.no,
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                }
-                            }
-                    );
-                    alertDialogBuilder.setCancelable(true);
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-                    alertDialog.show();
+                    alertDialogRetweet(retweetBtn, item, retweetNumber);
+
                 } else {
                     retweetBtn.setImageResource(R.drawable.retweet_action);
                     countRetweet = 0;
-                    new TwitterDestroyRetweetAsync(activity, item, retweetGetId.Id).execute();
+                    new TwitterDestroyRetweetAsync(context, item, retweetGetId.Id).execute();
                     retweetNumberGet = String.valueOf(item.getRetweetCount());
                     if (item.getRetweetCount() != 0) {
                         retweetNumber.setText(retweetNumberGet);
@@ -165,16 +121,16 @@ public class TweetTimelineAdapter extends ArrayAdapter<Status> {
         replyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent tweetInt = new Intent(activity, MyTweetActivity.class);
+                Intent tweetInt = new Intent(context, MyTweetActivity.class);
                 tweetInt.putExtra("screenName", item.getUser().getScreenName());
-                activity.startActivity(tweetInt);
+                context.startActivity(tweetInt);
             }
         });
 
         profileImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent profileInt = new Intent(activity, OtherTwitterProfileActivity.class);
+                Intent profileInt = new Intent(context, OtherTwitterProfileActivity.class);
                 profileInt.putExtra("name", item.getUser().getName());
                 profileInt.putExtra("screenName", item.getUser().getScreenName());
                 profileInt.putExtra("text", item.getUser().getDescription());
@@ -182,11 +138,69 @@ public class TweetTimelineAdapter extends ArrayAdapter<Status> {
                 profileInt.putExtra("follow", item.getUser().getFriendsCount());
                 profileInt.putExtra("follower", item.getUser().getFollowersCount());
                 profileInt.putExtra("userId", item.getUser().getId());
-                activity.startActivity(profileInt);
+                context.startActivity(profileInt);
             }
         });
 
         return convertView;
+    }
+
+    public void alertDialogFavorite(final ImageView favoriteBtn, final Status item, final TextView favoriteNumber){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+        alertDialogBuilder.setMessage(R.string.do_favorite);
+        alertDialogBuilder.setPositiveButton(R.string.yes,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        favoriteBtn.setImageResource(R.drawable.favorite_action_clicked);
+                        countFavorite = 1;
+                        favoriteNumberGet = String.valueOf(item.getFavoriteCount() + 1);
+                        favoriteNumber.setText(favoriteNumberGet);
+                        new TwitterCreateFavoriteAsync(context, item).execute();
+                    }
+                }
+        );
+        alertDialogBuilder.setNegativeButton(R.string.no,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                }
+        );
+        alertDialogBuilder.setCancelable(true);
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    public void alertDialogRetweet(final ImageView retweetBtn, final Status item, final TextView retweetNumber){
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+        alertDialogBuilder.setMessage(R.string.do_retweet);
+        alertDialogBuilder.setPositiveButton(R.string.yes,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        retweetBtn.setImageResource(R.drawable.retweet_action_clicked);
+                        countRetweet = 1;
+                        new TwitterCreateRetweetAsync(context, item, retweetGetId).execute();
+                        id = retweetGetId.Id;
+                        retweetNumberGet = String.valueOf(item.getRetweetCount() + 1);
+                        retweetNumber.setText(retweetNumberGet);
+
+                    }
+                }
+        );
+        alertDialogBuilder.setNegativeButton(R.string.no,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                }
+        );
+        alertDialogBuilder.setCancelable(true);
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+
     }
 
 }

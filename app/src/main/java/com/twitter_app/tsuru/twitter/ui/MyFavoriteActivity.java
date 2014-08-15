@@ -27,13 +27,13 @@ public class MyFavoriteActivity extends ListActivity {
 
     private TwitterFavoriteAdapter adapter;
     private Twitter twitter;
-    ProgressDialog prog;
-    TwitterGetId[] favoriteId;
-    String[] name;
-    int position;
-    int[] countName;
-    int count_i;
-    int hoji;
+    public ProgressDialog progressDialog;
+    public TwitterGetId[] favoriteId;
+    public String[] name;
+    public int position;
+    public int[] countName;
+    public int count_i;
+    public int hoji;
 
 
     @Override
@@ -47,11 +47,11 @@ public class MyFavoriteActivity extends ListActivity {
         twitter = TwitterUtils.getTwitterInstance(this);
         setListAdapter(adapter);
 
-        prog = new ProgressDialog(this);
-        prog.setProgressStyle(prog.STYLE_SPINNER);
-        prog.setMessage(getString(R.string.loading));
-        prog.setCancelable(true);
-        prog.show();
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setProgressStyle(progressDialog.STYLE_SPINNER);
+        progressDialog.setMessage(getString(R.string.loading));
+        progressDialog.setCancelable(true);
+        progressDialog.show();
 
         reloadTimeLine();
     }
@@ -97,7 +97,7 @@ public class MyFavoriteActivity extends ListActivity {
             @Override
             protected void onPostExecute(List<twitter4j.Status> result) {
                 if (result != null) {
-                    prog.dismiss();
+                    progressDialog.dismiss();
                     adapter.clear();
                     for (final twitter4j.Status status : result) {
                         adapter.add(status);

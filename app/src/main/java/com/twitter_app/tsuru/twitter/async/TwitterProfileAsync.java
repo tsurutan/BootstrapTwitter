@@ -26,36 +26,36 @@ public class TwitterProfileAsync extends AsyncTask<Void, Void, Void> {
     public String url;
     public String followerNumber;
     public String followNumber;
-    public TextView usernameid;
-    public TextView username;
+    public TextView userNameId;
+    public TextView userName;
     public TextView profileExplain;
-    public ImageView profile;
+    public ImageView profileImg;
     public Button follow;
     public Button follower;
-    public ProgressDialog prog;
+    public ProgressDialog progressDialog;
 
 
     public TwitterProfileAsync(Context context,
-                               TextView usernameid,
-                               TextView username,
+                               TextView userNameId,
+                               TextView userName,
                                TextView profileExplain,
-                               ImageView profile,
+                               ImageView profileImg,
                                Button follow,
                                Button follower
                                ){
         super();
         this.context = context;
-        this.usernameid=usernameid;
-        this.username=username;
+        this.userNameId =userNameId;
+        this.userName =userName;
         this.profileExplain=profileExplain;
-        this.profile=profile;
+        this.profileImg = profileImg;
         this.follow=follow;
         this.follower=follower;
-        prog = new ProgressDialog(context);
-        prog.setProgressStyle(prog.STYLE_SPINNER);
-        prog.setMessage(context.getString(R.string.loading));
-        prog.setCancelable(true);
-        prog.show();
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setProgressStyle(progressDialog.STYLE_SPINNER);
+        progressDialog.setMessage(context.getString(R.string.loading));
+        progressDialog.setCancelable(true);
+        progressDialog.show();
     }
 
 
@@ -85,13 +85,13 @@ public class TwitterProfileAsync extends AsyncTask<Void, Void, Void> {
     // メインスレッドで実行する処理
     @Override
     protected void onPostExecute(Void result) {
-        usernameid.setText("@"+ userNameIdStr);
-        username.setText(userNameStr);
+        userNameId.setText("@" + userNameIdStr);
+        userName.setText(userNameStr);
         profileExplain.setText(profileExplainStr);
         follow.setText(context.getString(R.string.follow)+"："+followNumber);
         follower.setText(context.getString(R.string.follower)+"："+followerNumber);
-        Picasso.with(context).load(url).into(profile);
-        prog.dismiss();
+        Picasso.with(context).load(url).into(profileImg);
+        progressDialog.dismiss();
 
     }
 }
