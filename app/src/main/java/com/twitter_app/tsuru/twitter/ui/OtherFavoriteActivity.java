@@ -36,13 +36,15 @@ public class OtherFavoriteActivity extends ListActivity {
     public int count_i;
     public int[] countName;
     public int hoji;
+    public static int pageCountNumber = 150;
+    public static int getIdNumber = 200;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        favoriteId = new TwitterGetId[200];
-        for (int position = 0; position < 200; position++) {
+        favoriteId = new TwitterGetId[getIdNumber];
+        for (int position = 0; position < getIdNumber; position++) {
             favoriteId[position] = new TwitterGetId();
         }
         adapter = new TwitterFavoriteAdapter(this, favoriteId);
@@ -92,7 +94,7 @@ public class OtherFavoriteActivity extends ListActivity {
             protected List<twitter4j.Status> doInBackground(Void... params) {
                 try {
                     Paging paging = new Paging();
-                    paging.setCount(150);
+                    paging.setCount(pageCountNumber);
                     return twitter.getFavorites(userId, paging);
                 } catch (TwitterException e) {
                     e.printStackTrace();
@@ -124,11 +126,11 @@ public class OtherFavoriteActivity extends ListActivity {
     //誰を一番お気に入りにしたかの探索
     public void rankingSearch() {
 
-        name = new String[200];
-        for (int position = 0; position < 200; position++) {
+        name = new String[getIdNumber];
+        for (int position = 0; position < getIdNumber; position++) {
             name[position] = new String();
         }
-        countName = new int[200];
+        countName = new int[getIdNumber];
         //重複しているユーザーを除く
         for (int position = 0, count = 0; favoriteId[position].item != null; position++) {
             for (count_i = 0; count_i <= position; count_i++) {

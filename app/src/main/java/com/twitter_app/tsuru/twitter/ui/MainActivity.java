@@ -28,6 +28,7 @@ public class MainActivity extends ListActivity {
     private TweetTimelineAdapter adapter;
     private Twitter twitter;
     public ProgressDialog progressDialog;
+    public static final int pageCountNumber = 200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +88,7 @@ public class MainActivity extends ListActivity {
                 try {
                     Paging paging = new Paging();
                     //タイムラインの取得数を指定
-                    paging.setCount(200);
+                    paging.setCount(pageCountNumber);
 
 
                     return twitter.getHomeTimeline(paging);
