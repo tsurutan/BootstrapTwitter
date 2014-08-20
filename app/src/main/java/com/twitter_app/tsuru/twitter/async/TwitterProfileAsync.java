@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.twitter_app.tsuru.twitter.R;
 import com.twitter_app.tsuru.twitter.TwitterUtils;
 
 import twitter4j.Twitter;
@@ -17,45 +18,44 @@ import twitter4j.TwitterException;
  * Created by tsuru on 2014/08/08.
  */
 public class TwitterProfileAsync extends AsyncTask<Void, Void, Void> {
-    Twitter twitter;
-    Context activity;
-    String userNameIdStr;
-    String userNameStr;
-    String profileExplainStr;
-    String url;
-    String followerNumber;
-    String followNumber;
-    TextView usernameid;
-    TextView username;
-    TextView profileExplain;
-    ImageView profile;
-    Button follow;
-    Button follower;
-    ProgressDialog prog;
+    public Twitter twitter;
+    public Context context;
+    public String userNameIdStr;
+    public String userNameStr;
+    public String profileExplainStr;
+    public String url;
+    public String followerNumber;
+    public String followNumber;
+    public TextView userNameId;
+    public TextView userName;
+    public TextView profileExplain;
+    public ImageView profileImg;
+    public Button follow;
+    public Button follower;
+    public ProgressDialog progressDialog;
 
 
-    public TwitterProfileAsync(Context activity,
-                               TextView usernameid,
-                               TextView username,
+    public TwitterProfileAsync(Context context,
+                               TextView userNameId,
+                               TextView userName,
                                TextView profileExplain,
-                               ImageView profile,
+                               ImageView profileImg,
                                Button follow,
                                Button follower
                                ){
         super();
-        this.activity = activity;
-        this.usernameid=usernameid;
-        this.username=username;
+        this.context = context;
+        this.userNameId =userNameId;
+        this.userName =userName;
         this.profileExplain=profileExplain;
-        this.profile=profile;
+        this.profileImg = profileImg;
         this.follow=follow;
         this.follower=follower;
-
-        prog = new ProgressDialog(activity);
-        prog.setProgressStyle(prog.STYLE_SPINNER);
-        prog.setMessage("読み込み中です");
-        prog.setCancelable(true);
-        prog.show();
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setProgressStyle(progressDialog.STYLE_SPINNER);
+        progressDialog.setMessage(context.getString(R.string.loading));
+        progressDialog.setCancelable(true);
+        progressDialog.show();
     }
 
 
@@ -67,9 +67,10 @@ public class TwitterProfileAsync extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... params) {
-        twitter = TwitterUtils.getTwitterInstance(activity);
+        twitter = TwitterUtils.getTwitterInstance(context);
+
         try {
-            twitter=TwitterUtils.getTwitterInstance(activity);
+            twitter=TwitterUtils.getTwitterInstance(context);
             userNameIdStr = twitter.getScreenName();
             userNameStr = twitter.verifyCredentials().getName();
             profileExplainStr = twitter.verifyCredentials().getDescription();
@@ -84,13 +85,13 @@ public class TwitterProfileAsync extends AsyncTask<Void, Void, Void> {
     // メインスレッドで実行する処理
     @Override
     protected void onPostExecute(Void result) {
-        usernameid.setText("@"+ userNameIdStr);
-        username.setText(userNameStr);
+        userNameId.setText("@" + userNameIdStr);
+        userName.setText(userNameStr);
         profileExplain.setText(profileExplainStr);
-        follow.setText("フォロー："+followNumber);
-        follower.setText("フォロワー："+followerNumber);
-        Picasso.with(activity).load(url).into(profile);
-        prog.dismiss();
+        follow.setText(context.getString(R.string.follow)+"："+followNumber);
+        follower.setText(context.getString(R.string.follower)+"："+followerNumber);
+        Picasso.with(context).load(url).into(profileImg);
+        progressDialog.dismiss();
 
     }
 }
