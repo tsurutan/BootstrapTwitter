@@ -32,7 +32,7 @@ public class MyFavoriteActivity extends ListActivity {
     public String[] name;
     public int position;
     public int[] countName;
-    public int count_i;
+    public int countI;
     public int hoji;
     public static int pageCountNumber = 150;
     public static int getIdNumber = 200;
@@ -127,13 +127,13 @@ public class MyFavoriteActivity extends ListActivity {
         countName = new int[getIdNumber];
         //重複しているユーザーを除く
         for (int position = 0, count = 0; favoriteId[position].item != null; position++) {
-            for (count_i = 0; count_i <= position; count_i++) {
-                if (name[count_i].equals(favoriteId[position].item.getUser().getName())) {
+            for (countI = 0; countI <= position; countI++) {
+                if (name[countI].equals(favoriteId[position].item.getUser().getName())) {
                     break;
                 }
 
             }
-            if (count_i == position + 1) {
+            if (countI == position + 1) {
                 name[count] = favoriteId[position].item.getUser().getName();
                 hoji = count;
                 count++;
