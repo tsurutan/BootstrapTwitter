@@ -1,4 +1,4 @@
 BootstrapTwitter
 ================
 
-android-bootstrapをもとに作成したTwitterクライアントです。
+This is a bootstrap twitter client.
